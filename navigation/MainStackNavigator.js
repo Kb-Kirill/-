@@ -4,6 +4,8 @@ import HomeScreen from "../screens/HomeScreen";
 import TestScreen from "../screens/TestScreen";
 import CheckPhotoScreen from "../screens/CheckPhotoScreen";
 import LoadingPhotoScreen from "../screens/LoadingPhotoScreen";
+import StartPageScreen from "../screens/StartPage";
+import OptionsScreen from "../screens/OptionsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,16 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="LoadingPhoto"
         component={LoadingPhotoScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StartPage"
+        component={StartPageScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Options"
+        component={OptionsScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

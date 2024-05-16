@@ -15,7 +15,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("Test");
+    navigation.navigate("Options");
   };
 
   return (
@@ -23,7 +23,7 @@ const HomeScreen = () => {
       colors={["#233195", "#314DB0", "#75BEEE", "#CCEDFF"]}
       locations={[0, 0.3863, 0.7156, 0.991]}
       start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+      end={{ x: 0, y: 1 }} 
       style={styles.container}
     >
       <View style={styles.titleContainer}>
