@@ -1,11 +1,11 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
-import TestScreen from "../screens/TestScreen";
 import CheckPhotoScreen from "../screens/CheckPhotoScreen";
 import LoadingPhotoScreen from "../screens/LoadingPhotoScreen";
 import StartPageScreen from "../screens/StartPage";
 import OptionsScreen from "../screens/OptionsScreen";
+import AddPhoto from "../screens/AddPhoto";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,8 +18,8 @@ const MainStackNavigator = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Test"
-        component={TestScreen}
+        name="AddPhoto"
+        component={AddPhoto}
         options={{ headerShown: false }}
       />
       <Stack.Screen
