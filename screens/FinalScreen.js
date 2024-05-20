@@ -1,22 +1,57 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
+import axios from "axios";
 
 const FinalScreen = () => {
-  const navigation = useNavigation();
+  const [processedImage, setProcessedImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [elapsedTime, setElapsedTime] = useState(0);
 
-  const handlePress = () => {
-    navigation.navigate("Home");
-  };
+  useEffect(() => {
+    const start = Date.now();
+    const processImage = async () => {
+      try {
+        const response = await axios.post(
+          "https://api.replicate.com/v1/predictions",
+          {
+            version: "9222a21c181b707209ef12b5e0d7e94c994b58f01c7b2fec075d2e892362f13c",
+            input: {
+              image: "https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg",
+              target_age: "80"
+            }
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Token r8_Q52pCyKzGAQHBHg9UG9LTzpofEvYEui4JetvF`
+            }
+          }
+        );
+
+        const output = response.data.output;
+        setProcessedImage(output);
+      } catch (error) {
+        console.error("Error processing image:", error);
+      } finally {
+        const end = Date.now();
+        setElapsedTime(end - start);
+        setLoading(false);
+      }
+    };
+
+    processImage();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: "https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg" }}
-          style={styles.image}
-        />
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <Image source={{ uri: processedImage }} style={styles.image} />
+        )}
       </View>
+      <Text style={styles.text}>Прошло времени: {elapsedTime / 1000} сек.</Text>
       <Text style={styles.text}>Сохранить и поделиться</Text>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconButton}>
@@ -50,7 +85,7 @@ const FinalScreen = () => {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.startOverButton} onPress={handlePress}>
+      <TouchableOpacity style={styles.startOverButton}>
         <Text style={styles.startOverText}>Начать сначала</Text>
       </TouchableOpacity>
     </View>
@@ -79,7 +114,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
-    marginVertical: 20,
+    marginVertical: 10,
   },
   iconRow: {
     flexDirection: "row",
