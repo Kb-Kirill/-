@@ -3,7 +3,6 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 const CheckPhotoScreen = () => {
-
   const navigation = useNavigation();
 
   const redirectHome = () => {
@@ -11,7 +10,7 @@ const CheckPhotoScreen = () => {
   };
 
   const redirectTest = () => {
-    navigation.navigate("LoadingPhoto");
+    navigation.navigate("Final");
   };
 
   return (
@@ -19,7 +18,7 @@ const CheckPhotoScreen = () => {
       <View style={styles.imageContainer}>
         <Image 
           style={styles.image} 
-          source={{ uri: 'https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg' }} // Замените на вашу картинку
+          source={{ uri: 'https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg' }} 
         />
       </View>
       <View style={styles.buttonContainer}>
@@ -40,36 +39,36 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F7FA',
   },
   imageContainer: {
-    flex: 7, // 70% высоты
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    paddingTop: '5%', // Добавляем отступ сверху   
+    width: "100%",
+    height: "70%", // Увеличиваем высоту контейнера изображения
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   image: {
-    width: '70%', // Делаем изображение меньше
-    height: '80%',
-    backgroundColor: '#E0E0E0',
+    width: "80%",
+    height: "100%",
+    resizeMode: "contain",
   },
   buttonContainer: {
-    flex: 3, // 30% высоты
+    flex: 1, // Уменьшаем высоту контейнера кнопок
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#E0F7FA',
-    paddingBottom: 30,
+    paddingVertical: 10, // Уменьшаем отступы сверху и снизу
   },
   button: {
     backgroundColor: '#303F9F',
-    width: 150, // Фиксированная ширина кнопок
-    height: 60, // Фиксированная высота кнопок
+    width: 150,
+    height: 50, // Уменьшаем высоту кнопок
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
   },
   buttonText: {
     color: 'white',
-    fontSize: 20, // Увеличим текст на кнопках
+    fontSize: 18, // Уменьшаем размер текста на кнопках
     fontWeight: 'bold',
   },
 });

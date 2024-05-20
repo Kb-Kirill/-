@@ -6,6 +6,7 @@ import LoadingPhotoScreen from "../screens/LoadingPhotoScreen";
 import StartPageScreen from "../screens/StartPage";
 import OptionsScreen from "../screens/OptionsScreen";
 import AddPhoto from "../screens/AddPhoto";
+import FinalScreen from "../screens/FinalScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,11 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="Options"
         component={OptionsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Final"
+        component={FinalScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
