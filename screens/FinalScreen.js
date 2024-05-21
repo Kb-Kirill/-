@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import axios from "axios";
+REPLICATE_API_TOKEN = "r8_PvmGMKGuTNO9EqKXftxFEjGhfTrlisL1ZtWKb"
 
 const FinalScreen = () => {
   const [processedImage, setProcessedImage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const start = Date.now();
@@ -23,15 +25,48 @@ const FinalScreen = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Token r8_Q52pCyKzGAQHBHg9UG9LTzpofEvYEui4JetvF`
+              "Authorization": `Token ${REPLICATE_API_TOKEN}`
             }
           }
         );
 
-        const output = response.data.output;
-        setProcessedImage(output);
+        const predictionId = response.data.id;
+
+        // Функция для получения статуса предсказания
+        const getPredictionStatus = async () => {
+          const statusResponse = await axios.get(
+            `https://api.replicate.com/v1/predictions/${predictionId}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${REPLICATE_API_TOKEN}`
+              }
+            }
+          );
+          return statusResponse.data;
+        };
+
+        // Ожидание завершения предсказания
+        let predictionData;
+        while (true) {
+          predictionData = await getPredictionStatus();
+          if (predictionData.status === "succeeded" || predictionData.status === "failed") {
+            break;
+          }
+          await new Promise(resolve => setTimeout(resolve, 5000)); // Ждать 5 секунд перед повторной проверкой
+        }
+
+        if (predictionData.status === "succeeded") {
+          setProcessedImage(predictionData.output);
+        } else {
+          setError("Prediction failed");
+        }
       } catch (error) {
-        console.error("Error processing image:", error);
+        if (error.response && error.response.status === 401) {
+          setError("Invalid API token");
+        } else {
+          setError("An error occurred: " + error.message);
+        }
       } finally {
         const end = Date.now();
         setElapsedTime(end - start);
@@ -47,8 +82,10 @@ const FinalScreen = () => {
       <View style={styles.imageContainer}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
+        ) : error ? (
+          <Text style={styles.errorText}>{error}</Text>
         ) : (
-          <Image source={{ uri: processedImage }} style={styles.image} />
+          processedImage && <Image source={{ uri: processedImage }} style={styles.image} />
         )}
       </View>
       <Text style={styles.text}>Прошло времени: {elapsedTime / 1000} сек.</Text>
@@ -114,6 +151,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: "bold",
+    marginVertical: 10,
+  },
+  errorText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "red",
     marginVertical: 10,
   },
   iconRow: {
