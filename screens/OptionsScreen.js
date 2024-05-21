@@ -40,117 +40,109 @@ const OptionsScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
-    >
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.otherPages}>
-          {error ? (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>{error}</Text>
-            </View>
-          ) : null}
-          <View style={styles.container}>
-            <View style={styles.category}>
-              <Text style={styles.header}>Ваш возраст</Text>
-              <View style={styles.inputBorder}>
-                <TextInput
-                  style={styles.inputInner}
-                  keyboardType="numeric"
-                  value={age}
-                  onChangeText={handleAgeChange}
-                />
-              </View>
-            </View>
-            <View style={styles.category}>
-              <Text style={styles.header}>Тип вещества</Text>
-              <Pressable
-                style={[
-                  styles.option,
-                  selectedSubstance === "alcohol" && styles.selectedOption,
-                ]}
-                onPress={() => setSelectedSubstance("alcohol")}
-              >
-                <View style={styles.radioCircle}>
-                  {selectedSubstance === "alcohol" && (
-                    <View style={styles.selectedRb} />
-                  )}
-                </View>
-                <Text style={styles.mainText}>Алкоголь</Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.option,
-                  selectedSubstance === "drugs" && styles.selectedOption,
-                ]}
-                onPress={() => setSelectedSubstance("drugs")}
-              >
-                <View style={styles.radioCircle}>
-                  {selectedSubstance === "drugs" && (
-                    <View style={styles.selectedRb} />
-                  )}
-                </View>
-                <Text style={styles.mainText}>Наркотики</Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.option,
-                  selectedSubstance === "cigarettes" && styles.selectedOption,
-                ]}
-                onPress={() => setSelectedSubstance("cigarettes")}
-              >
-                <View style={styles.radioCircle}>
-                  {selectedSubstance === "cigarettes" && (
-                    <View style={styles.selectedRb} />
-                  )}
-                </View>
-                <Text style={styles.mainText}>Сигареты</Text>
-              </Pressable>
-            </View>
-            <View style={styles.category}>
-              <Text style={styles.header}>Степень зависимости</Text>
-              <Pressable
-                style={[
-                  styles.option,
-                  selectedDependency === "moderate" && styles.selectedOption,
-                ]}
-                onPress={() => setSelectedDependency("moderate")}
-              >
-                <View style={styles.radioCircle}>
-                  {selectedDependency === "moderate" && (
-                    <View style={styles.selectedRb} />
-                  )}
-                </View>
-                <Text style={styles.mainText}>Умеренная</Text>
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.option,
-                  selectedDependency === "severe" && styles.selectedOption,
-                ]}
-                onPress={() => setSelectedDependency("severe")}
-              >
-                <View style={styles.radioCircle}>
-                  {selectedDependency === "severe" && (
-                    <View style={styles.selectedRb} />
-                  )}
-                </View>
-                <Text style={styles.mainText}>Тяжёлая</Text>
-              </Pressable>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+      <View style={styles.otherPages}>
+        {error ? (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        ) : null}
+        <View style={styles.container}>
+          <View style={styles.category}>
+            <Text style={styles.header}>Ваш возраст</Text>
+            <View style={styles.inputBorder}>
+              <TextInput
+                style={styles.inputInner}
+                keyboardType="numeric"
+                value={age}
+                onChangeText={handleAgeChange}
+              />
             </View>
           </View>
-          <TouchableOpacity
-            style={[styles.nextButton, error && styles.ButtonWithPopUp]}
-          >
-            <Text style={styles.buttonText} onPress={handlePress}>
-              Далее
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.category}>
+            <Text style={styles.header}>Тип вещества</Text>
+            <Pressable
+              style={[
+                styles.option,
+                selectedSubstance === "alcohol" && styles.selectedOption,
+              ]}
+              onPress={() => setSelectedSubstance("alcohol")}
+            >
+              <View style={styles.radioCircle}>
+                {selectedSubstance === "alcohol" && (
+                  <View style={styles.selectedRb} />
+                )}
+              </View>
+              <Text style={styles.mainText}>Алкоголь</Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.option,
+                selectedSubstance === "drugs" && styles.selectedOption,
+              ]}
+              onPress={() => setSelectedSubstance("drugs")}
+            >
+              <View style={styles.radioCircle}>
+                {selectedSubstance === "drugs" && (
+                  <View style={styles.selectedRb} />
+                )}
+              </View>
+              <Text style={styles.mainText}>Наркотики</Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.option,
+                selectedSubstance === "cigarettes" && styles.selectedOption,
+              ]}
+              onPress={() => setSelectedSubstance("cigarettes")}
+            >
+              <View style={styles.radioCircle}>
+                {selectedSubstance === "cigarettes" && (
+                  <View style={styles.selectedRb} />
+                )}
+              </View>
+              <Text style={styles.mainText}>Сигареты</Text>
+            </Pressable>
+          </View>
+          <View style={styles.category}>
+            <Text style={styles.header}>Степень зависимости</Text>
+            <Pressable
+              style={[
+                styles.option,
+                selectedDependency === "moderate" && styles.selectedOption,
+              ]}
+              onPress={() => setSelectedDependency("moderate")}
+            >
+              <View style={styles.radioCircle}>
+                {selectedDependency === "moderate" && (
+                  <View style={styles.selectedRb} />
+                )}
+              </View>
+              <Text style={styles.mainText}>Умеренная</Text>
+            </Pressable>
+            <Pressable
+              style={[
+                styles.option,
+                selectedDependency === "severe" && styles.selectedOption,
+              ]}
+              onPress={() => setSelectedDependency("severe")}
+            >
+              <View style={styles.radioCircle}>
+                {selectedDependency === "severe" && (
+                  <View style={styles.selectedRb} />
+                )}
+              </View>
+              <Text style={styles.mainText}>Тяжёлая</Text>
+            </Pressable>
+          </View>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <TouchableOpacity style={styles.nextButton}>
+          <Text style={styles.buttonText} onPress={handlePress}>
+            Далее
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -161,16 +153,16 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 70,
     paddingHorizontal: 24,
-    justifyContent: "space-between",
   },
   errorContainer: {
-    backgroundColor: "red",
-    padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    position: "absolute",
+    zIndex: 1,
+    marginTop: 40,
   },
   errorText: {
-    color: "white",
+    color: "red",
     fontSize: 16,
     textAlign: "center",
   },
@@ -182,18 +174,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "left",
   },
-  buttonText: {
-    textAlign: "center",
-    color: "#ffffff",
-    fontSize: 20,
-  },
   header: {
     textAlign: "center",
     fontSize: 20,
     marginBottom: 20,
+    fontFamily: "os-bold",
   },
   inputBorder: {
-    width: "30%",
+    width: "50%",
     height: 42,
     borderRadius: 12,
     borderColor: "black",
@@ -204,6 +192,7 @@ const styles = StyleSheet.create({
   inputInner: {
     width: "100%",
     height: "100%",
+    textAlign: "center",
   },
   category: {
     gap: 10,
@@ -227,28 +216,31 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#233195",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 10,
   },
   selectedRb: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 13,
+    height: 13,
+    borderRadius: 10,
     backgroundColor: "#233195",
   },
   nextButton: {
     paddingTop: 11,
-    width: 164,
+    width: "45%",
     height: 50,
     backgroundColor: "#233195",
     borderRadius: 12,
-    top: 20,
+    marginTop: 100,
   },
-  ButtonWithPopUp: {
-    top: 20,
+  buttonText: {
+    textAlign: "center",
+    color: "#ffffff",
+    fontSize: 16,
+    fontFamily: "os-bold",
   },
 });
 
