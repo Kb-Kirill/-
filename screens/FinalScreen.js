@@ -1,9 +1,14 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const FinalScreen = ({ route }) => {
   const { processedImage } = route.params;
-  console.log(route)
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate("Options");
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +53,7 @@ const FinalScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.startOverButton}>
-        <Text style={styles.startOverText}>Начать сначала</Text>
+        <Text style={styles.startOverText} onPress={handlePress}>Начать сначала</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
-REPLICATE_API_TOKEN = "r8_dG4I9OlkjMFjtpgRKMhrKByDnG0J8EB41cfuk"
 import { useNavigation } from '@react-navigation/native';
+
+REPLICATE_API_TOKEN = "r8_dG4I9OlkjMFjtpgRKMhrKByDnG0J8EB41cfuk";
 
 const LoadingPhotoScreen = () => {
   const [currentDot, setCurrentDot] = useState(0);
   const [error, setError] = useState(null);
+  const [timer, setTimer] = useState(0);
+  const [hasRedirected, setHasRedirected] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const dotInterval = setInterval(() => {
       setCurrentDot((prevDot) => (prevDot + 1) % 3);
-    }, 500);
+    }, 500); // Обновляем анимацию каждые 0.5 секунды
 
-    return () => clearInterval(interval);
+    const timerInterval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer + 1);
+    }, 1000); // Обновляем таймер каждую секунду
+
+    return () => {
+      clearInterval(dotInterval);
+      clearInterval(timerInterval);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,9 +71,10 @@ const LoadingPhotoScreen = () => {
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
 
-        if (predictionData.status === "succeeded") {
+        if (predictionData.status === "succeeded" && !hasRedirected) {
+          setHasRedirected(true);
           navigation.navigate('Final', { processedImage: predictionData.output });
-        } else {
+        } else if (predictionData.status === "failed") {
           setError("Prediction failed");
         }
       } catch (error) {
@@ -75,8 +86,10 @@ const LoadingPhotoScreen = () => {
       }
     };
 
-    processImage();
-  }, [navigation]);
+    if (!hasRedirected) {
+      processImage();
+    }
+  }, [hasRedirected, navigation]);
 
   return (
     <View style={styles.container}>
@@ -88,7 +101,10 @@ const LoadingPhotoScreen = () => {
       {error ? (
         <Text style={styles.errorText}>{error}</Text>
       ) : (
-        <Text style={styles.text}>Загружаем результат</Text>
+        <View>
+          <Text style={styles.text}>Загружаем результат</Text>
+          <Text style={styles.timerText}>Прошло времени: {timer} </Text>
+        </View>
       )}
     </View>
   );
@@ -118,6 +134,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 32,
     fontWeight: "bold",
+  },
+  timerText: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginTop: 20,
   },
   errorText: {
     fontSize: 32,

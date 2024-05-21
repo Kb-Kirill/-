@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 const CheckPhotoScreen = () => {
   const navigation = useNavigation();
 
-  const redirectHome = () => {
-    navigation.navigate("Home");
+  const redirectBack = () => {
+    navigation.goBack();
   };
 
   const redirectTest = () => {
@@ -22,7 +22,7 @@ const CheckPhotoScreen = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={redirectHome}>
+        <TouchableOpacity style={styles.button} onPress={redirectBack}>
           <Text style={styles.buttonText}>Назад</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={redirectTest}>
