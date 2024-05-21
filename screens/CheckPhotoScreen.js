@@ -10,7 +10,7 @@ const CheckPhotoScreen = () => {
   };
 
   const redirectTest = () => {
-    navigation.navigate("Final");
+    navigation.navigate("LoadingPhoto");
   };
 
   return (

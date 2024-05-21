@@ -30,7 +30,8 @@
     "replicate": "^0.29.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.24.5",
+    "metro-react-native-babel-preset": "^0.77.0"
   },
   "private": true
 }

@@ -1,94 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
-import axios from "axios";
-REPLICATE_API_TOKEN = "r8_PvmGMKGuTNO9EqKXftxFEjGhfTrlisL1ZtWKb"
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-const FinalScreen = () => {
-  const [processedImage, setProcessedImage] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const start = Date.now();
-    const processImage = async () => {
-      try {
-        const response = await axios.post(
-          "https://api.replicate.com/v1/predictions",
-          {
-            version: "9222a21c181b707209ef12b5e0d7e94c994b58f01c7b2fec075d2e892362f13c",
-            input: {
-              image: "https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg",
-              target_age: "80"
-            }
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Token ${REPLICATE_API_TOKEN}`
-            }
-          }
-        );
-
-        const predictionId = response.data.id;
-
-        // Функция для получения статуса предсказания
-        const getPredictionStatus = async () => {
-          const statusResponse = await axios.get(
-            `https://api.replicate.com/v1/predictions/${predictionId}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${REPLICATE_API_TOKEN}`
-              }
-            }
-          );
-          return statusResponse.data;
-        };
-
-        // Ожидание завершения предсказания
-        let predictionData;
-        while (true) {
-          predictionData = await getPredictionStatus();
-          if (predictionData.status === "succeeded" || predictionData.status === "failed") {
-            break;
-          }
-          await new Promise(resolve => setTimeout(resolve, 5000)); // Ждать 5 секунд перед повторной проверкой
-        }
-
-        if (predictionData.status === "succeeded") {
-          setProcessedImage(predictionData.output);
-        } else {
-          setError("Prediction failed");
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          setError("Invalid API token");
-        } else {
-          setError("An error occurred: " + error.message);
-        }
-      } finally {
-        const end = Date.now();
-        setElapsedTime(end - start);
-        setLoading(false);
-      }
-    };
-
-    processImage();
-  }, []);
+const FinalScreen = ({ route }) => {
+  const { processedImage } = route.params;
+  console.log(route)
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : error ? (
-          <Text style={styles.errorText}>{error}</Text>
+        {processedImage ? (
+          <Image source={{ uri: processedImage }} style={styles.image} />
         ) : (
-          processedImage && <Image source={{ uri: processedImage }} style={styles.image} />
+          <Text style={styles.errorText}>Ошибка загрузки изображения</Text>
         )}
       </View>
-      <Text style={styles.text}>Прошло времени: {elapsedTime / 1000} сек.</Text>
       <Text style={styles.text}>Сохранить и поделиться</Text>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconButton}>
