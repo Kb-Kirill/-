@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
+import * as FileSystem from "expo-file-system";
 
-REPLICATE_API_TOKEN = "r8_dG4I9OlkjMFjtpgRKMhrKByDnG0J8EB41cfuk";
+REPLICATE_API_TOKEN = "r8_NzSiGdomIIcX9BqBmlGhBWhDhASSpnA1H1H4r";
 
-const LoadingPhotoScreen = () => {
+const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);
   const [error, setError] = useState(null);
   const [timer, setTimer] = useState(0);
   const [hasRedirected, setHasRedirected] = useState(false);
   const navigation = useNavigation();
+  const { userImage } = route.params;
 
   useEffect(() => {
     const dotInterval = setInterval(() => {
@@ -30,20 +32,25 @@ const LoadingPhotoScreen = () => {
   useEffect(() => {
     const processImage = async () => {
       try {
+        const base64Image = await FileSystem.readAsStringAsync(userImage, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+
         const response = await axios.post(
           "https://api.replicate.com/v1/predictions",
           {
-            version: "9222a21c181b707209ef12b5e0d7e94c994b58f01c7b2fec075d2e892362f13c",
+            version:
+              "9222a21c181b707209ef12b5e0d7e94c994b58f01c7b2fec075d2e892362f13c",
             input: {
-              image: "https://replicate.delivery/mgxm/806bea64-bb51-4c8a-bf4d-15602eb60fdd/1287.jpg",
-              target_age: "80"
-            }
+              image: `data:image/jpeg;base64,${base64Image}`,
+              target_age: "80",
+            },
           },
           {
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Token ${REPLICATE_API_TOKEN}`
-            }
+              Authorization: `Token ${REPLICATE_API_TOKEN}`,
+            },
           }
         );
 
@@ -55,8 +62,8 @@ const LoadingPhotoScreen = () => {
             {
               headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${REPLICATE_API_TOKEN}`
-              }
+                Authorization: `Token ${REPLICATE_API_TOKEN}`,
+              },
             }
           );
           return statusResponse.data;
@@ -65,15 +72,20 @@ const LoadingPhotoScreen = () => {
         let predictionData;
         while (true) {
           predictionData = await getPredictionStatus();
-          if (predictionData.status === "succeeded" || predictionData.status === "failed") {
+          if (
+            predictionData.status === "succeeded" ||
+            predictionData.status === "failed"
+          ) {
             break;
           }
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise((resolve) => setTimeout(resolve, 5000));
         }
 
         if (predictionData.status === "succeeded" && !hasRedirected) {
           setHasRedirected(true);
-          navigation.navigate('Final', { processedImage: predictionData.output });
+          navigation.navigate("Final", {
+            processedImage: predictionData.output,
+          });
         } else if (predictionData.status === "failed") {
           setError("Prediction failed");
         }

@@ -12,7 +12,7 @@ const CheckPhotoScreen = ({ route }) => {
   };
 
   const redirectTest = () => {
-    navigation.navigate("LoadingPhoto");
+    navigation.navigate("LoadingPhoto", { userImage: userImage });
   };
 
   return (
