@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const AddPhoto = () => {
   const [selectedYears, setSelectedYears] = useState(5);
@@ -66,8 +67,8 @@ const AddPhoto = () => {
     }
   };
 
-  const handleNext = () => {
-    navigation.navigate("CheckPhoto", { userImage });
+  const goBack = () => {
+    navigation.goBack();
   };
 
   return (
@@ -95,18 +96,20 @@ const AddPhoto = () => {
       <Text style={styles.sliderLabel}>Ваше фото</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handleTakePhoto}>
+          <Icon style={styles.icon} name="camera-retro" />
           <Text style={styles.buttonText}>Сделать фото</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={handleChooseFromGallery}
         >
+          <Icon style={styles.icon} name="photo" />
           <Text style={styles.buttonText}>Загрузить из галереи</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.nextButtonContainer}>
-        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-          <Text style={styles.nextButtonText}>Далее</Text>
+        <TouchableOpacity style={styles.nextButton} onPress={goBack}>
+          <Text style={styles.nextButtonText}>Назад</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -160,8 +163,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   buttonText: {
+    paddingTop: 10,
     fontFamily: "os-regular",
-    fontSize: 16,
+    fontSize: 14,
+    lineHeight: 16,
     color: "#000",
     textAlign: "center",
   },
@@ -183,6 +188,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#FFFFFF",
     textAlign: "center",
+  },
+  icon: {
+    alignSelf: "center",
+    fontSize: 40,
   },
 });
 
