@@ -26,7 +26,7 @@ const CustomSlider = ({ sliderValue, onSliderChange }) => {
         maximumValue={4}
         step={1}
         minimumTrackTintColor="#233195"
-        maximumTrackTintColor="#ccedff"
+        maximumTrackTintColor="background: rgba(204, 237, 255, 1)"
         thumbTintColor="#233195"
         onValueChange={onSliderChange}
         value={sliderValue}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   labelContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 320,
+    width: 350,
     paddingTop: 10,
   },
   label: {

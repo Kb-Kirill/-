@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const CheckPhotoScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -16,23 +17,33 @@ const CheckPhotoScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: userImage }} />
+    <LinearGradient
+      colors={["#75BEEE", "#CCEDFF"]}
+      style={styles.gradient}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: userImage }} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={redirectBack}>
+            <Text style={styles.buttonText}>Назад</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={redirectTest}>
+            <Text style={styles.buttonText}>Далее</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={redirectBack}>
-          <Text style={styles.buttonText}>Назад</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={redirectTest}>
-          <Text style={styles.buttonText}>Далее</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: "#E0F7FA",

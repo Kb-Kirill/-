@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomSlider from "../components/CustomSlider";
+import { LinearGradient } from "expo-linear-gradient";
 
 const AddPhoto = () => {
   const [selectedYears, setSelectedYears] = useState(5);
@@ -73,36 +74,46 @@ const AddPhoto = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.sliderLabel}>Период времени</Text>
-      <CustomSlider
-        sliderValue={sliderValue}
-        onSliderChange={handleSliderChange}
-      />
-      <Text style={styles.sliderLabel}>Ваше фото</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleTakePhoto}>
-          <Icon style={styles.icon} name="camera-retro" />
-          <Text style={styles.buttonText}>Сделать фото</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleChooseFromGallery}
-        >
-          <Icon style={styles.icon} name="photo" />
-          <Text style={styles.buttonText}>Загрузить из галереи</Text>
-        </TouchableOpacity>
+    <LinearGradient
+      colors={["#75BEEE", "#CCEDFF"]}
+      style={styles.gradient}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.sliderLabel}>Период времени</Text>
+        <CustomSlider
+          sliderValue={sliderValue}
+          onSliderChange={handleSliderChange}
+        />
+        <Text style={styles.sliderLabel}>Ваше фото</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleTakePhoto}>
+            <Icon style={styles.icon} name="camera-retro" />
+            <Text style={styles.buttonText}>Сделать фото</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleChooseFromGallery}
+          >
+            <Icon style={styles.icon} name="photo" />
+            <Text style={styles.buttonText}>Загрузить из галереи</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.nextButtonContainer}>
+          <TouchableOpacity style={styles.nextButton} onPress={goBack}>
+            <Text style={styles.nextButtonText}>Назад</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.nextButtonContainer}>
-        <TouchableOpacity style={styles.nextButton} onPress={goBack}>
-          <Text style={styles.nextButtonText}>Назад</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: "flex-start",
@@ -122,11 +133,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: "rgba(204, 237, 255, 1)",
+    backgroundColor: "#CCEDFF",
     width: 150,
     height: 131,
     justifyContent: "center",
     borderRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 5,
   },
   buttonText: {
     paddingTop: 10,
@@ -147,6 +162,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignSelf: "center",
     justifyContent: "center",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   nextButtonText: {
     fontFamily: "os-bold",
