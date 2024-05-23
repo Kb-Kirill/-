@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Button,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Slider from "@react-native-community/slider";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 
 const AddPhoto = () => {
   const [selectedYears, setSelectedYears] = useState(5);
-  const [photoUri, setPhotoUri] = useState(null);
+  const [userImage, setUserImage] = useState(null);
 
   const navigation = useNavigation();
 
@@ -20,16 +14,60 @@ const AddPhoto = () => {
     setSelectedYears(value);
   };
 
-  const handleTakePhoto = () => {
-    // Реализуйте функционал для сделать фото
+  const handleTakePhoto = async () => {
+    let { status } = await ImagePicker.getCameraPermissionsAsync();
+    if (status !== "granted") {
+      const { status: newStatus } =
+        await ImagePicker.requestCameraPermissionsAsync();
+      status = newStatus;
+    }
+    if (status !== "granted") {
+      alert(
+        "Извините, приложению необходим доступ к камере чтобы сделать фото!"
+      );
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setUserImage(uri);
+      navigation.navigate("CheckPhoto", { userImage: uri });
+    }
   };
 
-  const handleChooseFromGallery = () => {
-    // Реализуйте функционал для загрузки из галереи
+  const handleChooseFromGallery = async () => {
+    // Запрашиваем разрешения
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert(
+        "Извините, приложению необходим доступ к камере чтобы выбрать фото!"
+      );
+      return;
+    }
+
+    // Запускаем image picker
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setUserImage(uri);
+      navigation.navigate("CheckPhoto", { userImage: uri });
+    }
   };
 
   const handleNext = () => {
-    navigation.navigate("CheckPhoto");
+    navigation.navigate("CheckPhoto", { userImage });
   };
 
   return (
@@ -81,18 +119,18 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 20,
-    marginTop: 20, // Увеличен отступ сверху
+    marginTop: 20,
   },
   sliderContainer: {
     width: "100%",
   },
   sliderLabel: {
-    fontFamily: "os-bold", // Изменен на os-bold
-    fontSize: 20, // Изменен на 20
-    color: "#000", // Изменен на черный
+    fontFamily: "os-bold",
+    fontSize: 20,
+    color: "#000",
     marginBottom: 10,
     marginTop: 50,
-    textAlign: "center", // Выравнивание по центру
+    textAlign: "center",
   },
   slider: {
     width: "80%",
@@ -116,14 +154,14 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "rgba(204, 237, 255, 1)",
-    width: 150, // Увеличенная ширина
+    width: 150,
     height: 131,
     justifyContent: "center",
     borderRadius: 12,
   },
   buttonText: {
     fontFamily: "os-regular",
-    fontSize: 16, // Уменьшенный размер шрифта
+    fontSize: 16,
     color: "#000",
     textAlign: "center",
   },
@@ -138,7 +176,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 5,
     borderRadius: 12,
-    alignSelf: "center", // Выравнивание по центру по горизонтали
+    alignSelf: "center",
   },
   nextButtonText: {
     fontFamily: "os-bold",

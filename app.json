@@ -7,6 +7,15 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "assets": ["./assets/fonts/"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Разрешите нам доступ к Фотопленке, чтобы загрузить фото!",
+          "cameraPermission": "Разрешите нам доступ к Камере, чтобы сделать фото!"
+        }
+      ]
+    ],
     "fonts": [
       {
         "asset": "os-bold.ttf"
