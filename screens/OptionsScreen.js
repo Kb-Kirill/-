@@ -6,8 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
-  KeyboardAvoidingView,
-  Platform,
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -48,8 +46,8 @@ const OptionsScreen = () => {
           </View>
         ) : null}
         <View style={styles.container}>
+          <Text style={styles.header}>Ваш возраст</Text>
           <View style={styles.category}>
-            <Text style={styles.header}>Ваш возраст</Text>
             <View style={styles.inputBorder}>
               <TextInput
                 style={styles.inputInner}
@@ -59,8 +57,8 @@ const OptionsScreen = () => {
               />
             </View>
           </View>
+          <Text style={styles.header}>Тип вещества</Text>
           <View style={styles.category}>
-            <Text style={styles.header}>Тип вещества</Text>
             <Pressable
               style={[
                 styles.option,
@@ -104,8 +102,8 @@ const OptionsScreen = () => {
               <Text style={styles.mainText}>Сигареты</Text>
             </Pressable>
           </View>
+          <Text style={styles.header}>Степень зависимости</Text>
           <View style={styles.category}>
-            <Text style={styles.header}>Степень зависимости</Text>
             <Pressable
               style={[
                 styles.option,
@@ -136,6 +134,7 @@ const OptionsScreen = () => {
             </Pressable>
           </View>
         </View>
+        <View></View>
         <TouchableOpacity style={styles.nextButton}>
           <Text style={styles.buttonText} onPress={handlePress}>
             Далее
@@ -148,10 +147,9 @@ const OptionsScreen = () => {
 
 const styles = StyleSheet.create({
   otherPages: {
-    flex: 1,
     alignItems: "center",
     width: "100%",
-    paddingVertical: 70,
+    marginTop: 70,
     paddingHorizontal: 24,
   },
   errorContainer: {
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     position: "absolute",
     zIndex: 1,
-    marginTop: 40,
+    marginTop: 0,
   },
   errorText: {
     color: "red",
@@ -168,7 +166,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
-    gap: 40,
   },
   mainText: {
     fontSize: 16,
@@ -176,13 +173,14 @@ const styles = StyleSheet.create({
   },
   header: {
     textAlign: "center",
-    fontSize: 20,
-    marginBottom: 20,
+    marginTop: 40,
+    fontSize: 24,
     fontFamily: "os-bold",
   },
   inputBorder: {
     width: "50%",
     height: 42,
+    marginTop: 0,
     borderRadius: 12,
     borderColor: "black",
     borderWidth: 1,
@@ -192,9 +190,11 @@ const styles = StyleSheet.create({
   inputInner: {
     width: "100%",
     height: "100%",
+    fontSize: 16,
     textAlign: "center",
   },
   category: {
+    marginTop: 20,
     gap: 10,
     alignItems: "center",
     width: "100%",
@@ -229,17 +229,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#233195",
   },
   nextButton: {
-    paddingTop: 11,
-    width: "45%",
+    width: 164,
     height: 50,
     backgroundColor: "#233195",
     borderRadius: 12,
-    marginTop: 100,
+    marginTop: 90,
+    justifyContent: "center",
   },
   buttonText: {
     textAlign: "center",
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: "os-bold",
   },
 });
