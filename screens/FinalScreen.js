@@ -59,8 +59,8 @@ const FinalScreen = ({ route }) => {
       </View>
       </View>
       
-      <TouchableOpacity style={styles.startOverButton}>
-        <Text style={styles.startOverText} onPress={handlePress}>Начать сначала</Text>
+      <TouchableOpacity style={styles.startOverButton} onPress={handlePress}>
+        <Text style={styles.startOverText} >Начать сначала</Text>
       </TouchableOpacity>
     </LinearGradient>
   );
