@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import Slider from "@react-native-community/slider";
+
+const windowHeight = Dimensions.get("window").height;
 
 const CustomSlider = ({ sliderValue, onSliderChange }) => {
   const getYearValue = (value) => {
@@ -43,15 +45,16 @@ const CustomSlider = ({ sliderValue, onSliderChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    //marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: windowHeight / 14
   },
   labelContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: 350,
-    paddingTop: 10,
+    //paddingTop: 10,
   },
   label: {
     textAlign: "center",
