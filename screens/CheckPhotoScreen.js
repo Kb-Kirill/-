@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
+
 const CheckPhotoScreen = ({ route }) => {
   const navigation = useNavigation();
 
@@ -27,7 +28,9 @@ const CheckPhotoScreen = ({ route }) => {
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: userImage }} />
         </View>
-        <View style={styles.buttonContainer}>
+        
+        <View
+          style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={redirectBack}>
             <Text style={styles.buttonText}>Назад</Text>
           </TouchableOpacity>
@@ -46,17 +49,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    
     backgroundColor: "#E0F7FA",
   },
   imageContainer: {
     width: "100%",
-    height: "70%", // Увеличиваем высоту контейнера изображения
+    height: "85%", // Увеличиваем высоту контейнера изображения
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#080C27",
   },
   image: {
-    width: "80%",
+    width: "85%",
     height: "100%",
     resizeMode: "contain",
   },
@@ -65,21 +69,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "#E0F7FA",
+    backgroundColor: "#0E164B",
+    
     paddingVertical: 10, // Уменьшаем отступы сверху и снизу
   },
   button: {
-    backgroundColor: "#303F9F",
-    width: 150,
+    backgroundColor: "#233195",
+    width: '35%',
     height: 50, // Уменьшаем высоту кнопок
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
   },
   buttonText: {
     color: "white",
-    fontSize: 18, // Уменьшаем размер текста на кнопках
-    fontWeight: "bold",
+    fontSize: 16, // Уменьшаем размер текста на кнопках
+    fontFamily: 'os-bold',
   },
 });
 

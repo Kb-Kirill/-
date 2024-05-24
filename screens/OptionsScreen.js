@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  Dimensions
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+
+const windowHeight = Dimensions.get("window").height;
 
 const OptionsScreen = () => {
   const [age, setAge] = useState("");
@@ -69,7 +72,7 @@ const OptionsScreen = () => {
               <Pressable
                 style={[
                   styles.option,
-                  selectedSubstance === "alcohol" && styles.selectedOption,
+                  /*selectedSubstance === "alcohol" && styles.selectedOption,*/
                 ]}
                 onPress={() => setSelectedSubstance("alcohol")}
               >
@@ -83,7 +86,7 @@ const OptionsScreen = () => {
               <Pressable
                 style={[
                   styles.option,
-                  selectedSubstance === "drugs" && styles.selectedOption,
+                  /*selectedSubstance === "drugs" && styles.selectedOption,*/
                 ]}
                 onPress={() => setSelectedSubstance("drugs")}
               >
@@ -97,7 +100,7 @@ const OptionsScreen = () => {
               <Pressable
                 style={[
                   styles.option,
-                  selectedSubstance === "cigarettes" && styles.selectedOption,
+                  /*selectedSubstance === "cigarettes" && styles.selectedOption,*/
                 ]}
                 onPress={() => setSelectedSubstance("cigarettes")}
               >
@@ -114,7 +117,7 @@ const OptionsScreen = () => {
               <Pressable
                 style={[
                   styles.option,
-                  selectedDependency === "moderate" && styles.selectedOption,
+                  /*selectedDependency === "moderate" && styles.selectedOption,*/
                 ]}
                 onPress={() => setSelectedDependency("moderate")}
               >
@@ -128,7 +131,7 @@ const OptionsScreen = () => {
               <Pressable
                 style={[
                   styles.option,
-                  selectedDependency === "severe" && styles.selectedOption,
+                  /*selectedDependency === "severe" && styles.selectedOption,*/
                 ]}
                 onPress={() => setSelectedDependency("severe")}
               >
@@ -142,8 +145,8 @@ const OptionsScreen = () => {
             </View>
           </View>
           <View></View>
-          <TouchableOpacity style={styles.nextButton}>
-            <Text style={styles.buttonText} onPress={handlePress}>
+          <TouchableOpacity onPress={handlePress} style={[styles.nextButton, error && {marginTop: 20}]}>
+            <Text style={styles.buttonText} >
               Далее
             </Text>
           </TouchableOpacity>
@@ -156,37 +159,48 @@ const OptionsScreen = () => {
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
+    //alignItems: 'center'
+  },
+  scrollViewContent: {
+    //justifyContent: 'space-between'
   },
   otherPages: {
+    //backgroundColor: 'white',
     alignItems: "center",
-    width: "100%",
-    marginTop: 70,
-    paddingHorizontal: 24,
+    width: '100%',
+    justifyContent: 'flex-start',
+    paddingVertical: windowHeight / 12,
+    //paddingHorizontal: 24,
   },
   errorContainer: {
-    borderRadius: 5,
-    marginBottom: 10,
-    position: "absolute",
-    zIndex: 1,
+    borderRadius: 12,
+    marginBottom: 20,
+    //position: "absolute",
+    //zIndex: 1,
     marginTop: 0,
+    padding: 10,
+    backgroundColor: '#B01414'
   },
   errorText: {
-    color: "red",
+    color: "white",
     fontSize: 16,
     textAlign: "center",
+    fontFamily: 'os-regular'
   },
   container: {
-    width: "100%",
+    width: "85%",
   },
   mainText: {
     fontSize: 16,
     textAlign: "left",
+    fontFamily: 'os-regular'
   },
   header: {
     textAlign: "center",
-    marginTop: 40,
-    fontSize: 24,
+    //marginTop: 40,
+    fontSize: 20,
     fontFamily: "os-bold",
+    marginBottom: 20
   },
   inputBorder: {
     width: "50%",
@@ -211,10 +225,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   category: {
-    marginTop: 20,
+    //marginTop: 20,
     gap: 10,
     alignItems: "center",
     width: "100%",
+    marginBottom: 40
   },
   option: {
     borderColor: "black",
@@ -257,7 +272,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#233195",
     borderRadius: 12,
-    marginTop: 90,
+    marginTop: 40,
     justifyContent: "center",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.5,
@@ -267,9 +282,10 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     color: "#ffffff",
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: "os-bold",
   },
+  
 });
 
 export default OptionsScreen;

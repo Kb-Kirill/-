@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
+import { LinearGradient } from "expo-linear-gradient";
 
-REPLICATE_API_TOKEN = "r8_NzSiGdomIIcX9BqBmlGhBWhDhASSpnA1H1H4r";
+REPLICATE_API_TOKEN = "r8_2EdbKxx5liE8HXNxhfOYNqSPAGS94il1T12st";
 
 const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);
@@ -104,7 +105,8 @@ const LoadingPhotoScreen = ({ route }) => {
   }, [hasRedirected, navigation]);
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+    colors={["#1449B0", "#75BEEE"]} style={styles.container}>
       <View style={styles.dotsContainer}>
         <View style={[styles.dot, currentDot === 0 && styles.activeDot]} />
         <View style={[styles.dot, currentDot === 1 && styles.activeDot]} />
@@ -118,7 +120,7 @@ const LoadingPhotoScreen = ({ route }) => {
           <Text style={styles.timerText}>Прошло времени: {timer} </Text>
         </View>
       )}
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -130,12 +132,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   dotsContainer: {
+    
     flexDirection: "row",
-    marginBottom: 40,
+    marginBottom: 20,
+    alignItems: 'center',
   },
   dot: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     borderRadius: 15,
     backgroundColor: "#B3E5FC",
     marginHorizontal: 10,
@@ -144,18 +148,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#303F9F",
   },
   text: {
-    fontSize: 32,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontFamily: "os-bold",
+    color: 'white',
+    textAlign: 'center'
   },
   timerText: {
-    fontSize: 32,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontFamily: 'os-regular',
     marginTop: 20,
+    textAlign: 'center',
+    color: 'white'
   },
   errorText: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "red",
+    fontSize: 24,
+    fontFamily: 'os-bold',
+    color: "#B01414",
+    textAlign: 'centers'
   },
 });
 

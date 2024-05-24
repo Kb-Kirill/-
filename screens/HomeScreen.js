@@ -20,18 +20,18 @@ const HomeScreen = () => {
 
   return (
     <LinearGradient
-      colors={["#233195", "#314DB0", "#75BEEE", "#CCEDFF"]}
-      locations={[0, 0.3863, 0.7156, 0.991]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
+      colors={["#1449B0", "#75BEEE"]}
+      
       style={styles.container}
     >
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Прогноз Я</Text>
       </View>
-      <View style={styles.buttonContainer}>
+      <View
+      
+      style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>Начать</Text>
+            <Text style={styles.buttonText}>Начать</Text>
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -58,16 +58,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: "absolute",
     bottom: 140,
-    width: "100%",
-    justifyContent: "flex-end",
-    alignItems: "center",
+    width: "65%",
+    borderRadius: 12,
+    //justifyContent: "flex-end",
+    //alignItems: "center",
+    
+    
   },
   button: {
     backgroundColor: "#233195",
-    width: "65%",
+    width: "100%",
     paddingVertical: 20,
     paddingHorizontal: 30,
     borderRadius: 12,
+    
   },
   buttonText: {
     fontFamily: "os-bold",

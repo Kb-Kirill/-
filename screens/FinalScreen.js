@@ -1,6 +1,9 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+
+const windowHeight = Dimensions.get("window").height;
 
 const FinalScreen = ({ route }) => {
   const { processedImage } = route.params;
@@ -11,7 +14,8 @@ const FinalScreen = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["#75BEEE", "#CCEDFF"]} style={styles.container}>
+      
       <View style={styles.imageContainer}>
         {processedImage ? (
           <Image source={{ uri: processedImage }} style={styles.image} />
@@ -19,69 +23,77 @@ const FinalScreen = ({ route }) => {
           <Text style={styles.errorText}>Ошибка загрузки изображения</Text>
         )}
       </View>
+      <View>
       <Text style={styles.text}>Сохранить и поделиться</Text>
       <View style={styles.iconRow}>
         <TouchableOpacity style={styles.iconButton}>
           <Image
-            source={{ uri: "https://img.icons8.com/material-rounded/48/000000/download.png" }}
+            source={ require('../assets/icons/download.png') }
             style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
           <Image
-            source={{ uri: "https://img.icons8.com/fluency/48/000000/instagram-new.png" }}
+            source={require('../assets/icons/instagram.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
           <Image
-            source={{ uri: "https://img.icons8.com/color/48/000000/whatsapp.png" }}
+            source={require('../assets/icons/whats app.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
           <Image
-            source={{ uri: "https://img.icons8.com/color/48/000000/telegram-app.png" }}
+            source={require('../assets/icons/telegram.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
           <Image
-            source={{ uri: "https://img.icons8.com/color/48/000000/vk-circled.png" }}
+            source={require('../assets/icons/vk.png')}
             style={styles.icon}
           />
         </TouchableOpacity>
       </View>
+      </View>
+      
       <TouchableOpacity style={styles.startOverButton}>
         <Text style={styles.startOverText} onPress={handlePress}>Начать сначала</Text>
       </TouchableOpacity>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "white",
+    paddingVertical: windowHeight / 12,
+    //paddingHorizontal: 24,
   },
   imageContainer: {
-    width: "100%",
-    height: "60%",
+    //marginTop: 50,
+    width: "85%",
+    height: "65%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    //backgroundColor: "white",
   },
   image: {
-    width: "80%",
+    width: "100%",
     height: "100%",
     resizeMode: "contain",
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
-    marginVertical: 10,
+    textAlign: 'center',
+    marginBottom: 20,
+    //marginVertical: 10,
   },
   errorText: {
     fontSize: 24,
@@ -91,32 +103,46 @@ const styles = StyleSheet.create({
   },
   iconRow: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    width: "80%",
-    marginVertical: 20,
+    justifyContent: "space-between",
+    width: "85%",
+    //marginVertical: 20,
   },
   iconButton: {
     width: 50,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 15,
     backgroundColor: "#F0F0F0",
   },
   icon: {
-    width: 40,
-    height: 40,
+    //width: 40,
+    //height: 40,
   },
   startOverButton: {
-    marginTop: 20,
-    backgroundColor: "#303F9F",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 10,
+    justifyContent: 'center',
+    width: 164,
+    height: 50,
+    backgroundColor: '#233195',
+    borderRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 5,
+    //top: 20,
+    /*shadowColor: "#182369",
+    shadowOffset: {
+	        width: 0,
+	        height: 5,
+        },
+        shadowRadius: 10,
+        shadowOpacity: 0.8,*/
   },
   startOverText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: 'os-bold',
+    textAlign: 'center',
   },
 });
 
