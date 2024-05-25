@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import Slider from "@react-native-community/slider";
 import { useNavigation } from "@react-navigation/native";
@@ -14,16 +14,18 @@ import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomSlider from "../components/CustomSlider";
+import { GlobalContext } from "../context/GlobalContext.js";
 
 const windowHeight = Dimensions.get("window").height;
 
 const AddPhoto = () => {
-  const [selectedYears, setSelectedYears] = useState(5);
   const [userImage, setUserImage] = useState(null);
+
   const [sliderValue, setSliderValue] = useState(1);
+  const { yearValue, setYearValue } = useContext(GlobalContext);
 
   const handleSliderChange = (value) => {
-    setSliderValue(value);
+    setYearValue(value);
   };
 
   const navigation = useNavigation();
@@ -56,7 +58,6 @@ const AddPhoto = () => {
   };
 
   const handleChooseFromGallery = async () => {
-    // Запрашиваем разрешения
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       alert(
@@ -65,7 +66,6 @@ const AddPhoto = () => {
       return;
     }
 
-    // Запускаем image picker
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -124,19 +124,19 @@ const AddPhoto = () => {
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center",
   },
   container: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    width: '85%',
+    width: "85%",
     //marginTop: 20,
     paddingVertical: windowHeight / 12,
   },
   mark: {
     fontSize: 12,
-    fontFamily: 'os-regular',
+    fontFamily: "os-regular",
     color: "#888",
   },
   buttonContainer: {
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#CCEDFF",
-    width: '45%',
+    width: "45%",
     height: windowHeight / 6,
     padding: 20,
     justifyContent: "center",
@@ -168,10 +168,9 @@ const styles = StyleSheet.create({
   },
   nextButtonContainer: {
     width: "100%",
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     //marginTop: windowHeight / 3,
     height: windowHeight / 2.6,
-    
   },
   nextButton: {
     backgroundColor: "#233195",
@@ -199,7 +198,7 @@ const styles = StyleSheet.create({
     //marginTop: 70,
     fontFamily: "os-bold",
     fontSize: 20,
-    marginBottom: 20
+    marginBottom: 20,
   },
 });
 

@@ -30,8 +30,8 @@ const CustomSlider = ({ sliderValue, onSliderChange }) => {
         minimumTrackTintColor="#233195"
         maximumTrackTintColor="background: rgba(204, 237, 255, 1)"
         thumbTintColor="#233195"
-        onValueChange={onSliderChange}
-        value={sliderValue}
+        onValueChange={(value) => onSliderChange(getYearValue(value))}
+        value={sliderValue} // Ensure that sliderValue is passed correctly
       />
       <View style={styles.labelContainer}>
         <Text style={styles.label}>5 лет</Text>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     //marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: windowHeight / 14
+    marginBottom: windowHeight / 14,
   },
   labelContainer: {
     flexDirection: "row",

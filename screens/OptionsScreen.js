@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -11,13 +11,19 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { GlobalContext } from "../context/GlobalContext.js";
 
 const windowHeight = Dimensions.get("window").height;
 
 const OptionsScreen = () => {
-  const [age, setAge] = useState("");
-  const [selectedSubstance, setSelectedSubstance] = useState(null);
-  const [selectedDependency, setSelectedDependency] = useState(null);
+  const {
+    age,
+    setAge,
+    selectedSubstance,
+    setSelectedSubstance,
+    selectedDependency,
+    setSelectedDependency,
+  } = useContext(GlobalContext);
   const [error, setError] = useState("");
 
   const handleAgeChange = (value) => {

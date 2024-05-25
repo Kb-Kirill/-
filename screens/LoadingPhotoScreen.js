@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
 import { LinearGradient } from "expo-linear-gradient";
+import { GlobalContext } from "../context/GlobalContext";
 
-REPLICATE_API_TOKEN = "r8_2EdbKxx5liE8HXNxhfOYNqSPAGS94il1T12st";
+REPLICATE_API_TOKEN = "r8_QUCp7NjyuI0GSd3bfZSmgBErZwPIMjz2squxD";
 
 const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);
@@ -14,6 +15,11 @@ const LoadingPhotoScreen = ({ route }) => {
   const [hasRedirected, setHasRedirected] = useState(false);
   const navigation = useNavigation();
   const { userImage } = route.params;
+
+  const { yearValue, age, selectedSubstance, selectedDependency } =
+    useContext(GlobalContext);
+
+  const [ageInput, setAgeInput] = useState(parseInt(age) + parseInt(yearValue));
 
   useEffect(() => {
     const dotInterval = setInterval(() => {
@@ -44,7 +50,7 @@ const LoadingPhotoScreen = ({ route }) => {
               "9222a21c181b707209ef12b5e0d7e94c994b58f01c7b2fec075d2e892362f13c",
             input: {
               image: `data:image/jpeg;base64,${base64Image}`,
-              target_age: "80",
+              target_age: ageInput,
             },
           },
           {
@@ -105,8 +111,7 @@ const LoadingPhotoScreen = ({ route }) => {
   }, [hasRedirected, navigation]);
 
   return (
-    <LinearGradient
-    colors={["#1449B0", "#75BEEE"]} style={styles.container}>
+    <LinearGradient colors={["#1449B0", "#75BEEE"]} style={styles.container}>
       <View style={styles.dotsContainer}>
         <View style={[styles.dot, currentDot === 0 && styles.activeDot]} />
         <View style={[styles.dot, currentDot === 1 && styles.activeDot]} />
@@ -118,6 +123,7 @@ const LoadingPhotoScreen = ({ route }) => {
         <View>
           <Text style={styles.text}>Загружаем результат</Text>
           <Text style={styles.timerText}>Прошло времени: {timer} </Text>
+          <Text style={styles.timerText}>Ожидаемый возраст: {ageInput} </Text>
         </View>
       )}
     </LinearGradient>
@@ -132,10 +138,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   dotsContainer: {
-    
     flexDirection: "row",
     marginBottom: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   dot: {
     width: 20,
@@ -150,21 +155,21 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontFamily: "os-bold",
-    color: 'white',
-    textAlign: 'center'
+    color: "white",
+    textAlign: "center",
   },
   timerText: {
     fontSize: 18,
-    fontFamily: 'os-regular',
+    fontFamily: "os-regular",
     marginTop: 20,
-    textAlign: 'center',
-    color: 'white'
+    textAlign: "center",
+    color: "white",
   },
   errorText: {
     fontSize: 24,
-    fontFamily: 'os-bold',
+    fontFamily: "os-bold",
     color: "#B01414",
-    textAlign: 'centers'
+    textAlign: "centers",
   },
 });
 
