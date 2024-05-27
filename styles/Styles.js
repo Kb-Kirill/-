@@ -8,14 +8,22 @@ export const styles = StyleSheet.create({
     },
     container2: {
       flex: 1,
-      justifyContent: "flex-start",
+      justifyContent: "space-between",
       alignItems: "center",
       paddingVertical: windowHeight / 12,
+      width: "85%",
     },
     container1: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+    },
+    container0:{
+      justifyContent: "space-between",
+      alignItems: "center",
+      paddingVertical: windowHeight / 12,
+      width: "100%",
+      height: windowHeight,
     },
     iconsContainer: {
       flexDirection: "row",
@@ -48,7 +56,7 @@ export const styles = StyleSheet.create({
     },
     button: {
       width: 164,
-      height: 50,
+      height: windowHeight / 17,
       backgroundColor: "#233195",
       borderRadius: 12,
       justifyContent: "center",
@@ -70,7 +78,7 @@ export const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 20,
       fontFamily: "os-bold",
-      marginBottom: 20,
+      marginBottom: windowHeight / 42,
     },
     mainText: {
       fontSize: 16,
@@ -92,14 +100,13 @@ export const styles = StyleSheet.create({
     },
     errorContainer: {
       borderRadius: 12,
-      marginBottom: 20,
       marginTop: 0,
-      padding: 10,
+      padding: windowHeight / 85,
       backgroundColor: "#B01414",
     },
     ageInput:{
       width: "50%",
-      height: 40,
+      height: windowHeight / 21,
     },
     inputInner: {
       width: "100%",
@@ -108,14 +115,14 @@ export const styles = StyleSheet.create({
       textAlign: "center",
     },
     category: {
-      gap: 10,
+      gap: windowHeight / 85,
       alignItems: "center",
       width: "100%",
-      marginBottom: 40,
+      marginBottom: windowHeight / 21,
     },
     option:{
       flexDirection: "row",
-      height: 50,
+      height: windowHeight / 17,
       width: "100%",
     },
     radioCircle: {
@@ -144,7 +151,7 @@ export const styles = StyleSheet.create({
     sliderLabelContainer: {
       flexDirection: "row",
       justifyContent: "space-between",
-      width: 350,
+      width: "100%",
     },
     sliderLabel: {
       textAlign: "center",
@@ -157,15 +164,13 @@ export const styles = StyleSheet.create({
     photoButton:{
       backgroundColor: "#CCEDFF",
       width: "45%",
-      height: windowHeight / 6,
+      height: 130,
       padding: 20,
       justifyContent: "center",
       borderRadius: 12,
     },
     nextButtonContainer: {
       width: "100%",
-      justifyContent: "flex-end",
-      height: windowHeight / 2.6,
     },
     icon: {
       alignSelf: "center",
@@ -225,8 +230,8 @@ export const styles = StyleSheet.create({
       resizeMode: "contain",
     },
     iconButton: {
-      width: 50,
-      height: 50,
+      width: windowHeight / 17,
+      height: windowHeight / 17,
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 15,

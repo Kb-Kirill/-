@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { GlobalContext } from "../context/GlobalContext";
 import { styles } from "../styles/Styles";
 
-REPLICATE_API_TOKEN = "r8_0Mi86sNv0zdNBdLbc4xtUHgputFpFdY3ycGRE";
+REPLICATE_API_TOKEN = "r8_InT2AqZ9m9QyNeyY5Yp2udbbbeB6n3x0Ov4ze";
 
 const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);
@@ -120,9 +120,9 @@ const LoadingPhotoScreen = ({ route }) => {
         <View style = {[styles.dot, currentDot === 2 && styles.activeDot]} />
       </View>
       {error ? (
-        <Text style = {styles.errorText}>{error}</Text>
+        <Text style = {[styles.errorText, {width: "85%"} ]}>{error}</Text>
       ) : (
-        <View>
+        <View >
           <Text style = {[styles.header, {fontSize: 24, color: 'white'}]}>Загружаем результат</Text>
           <Text style = {styles.loadingText}>Прошло времени: {timer}</Text>
           <Text style = {styles.loadingText}>Ожидаемый возраст: {ageInput}</Text>

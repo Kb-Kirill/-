@@ -15,7 +15,7 @@ const HomeScreen = () => {
 
   return (
     <LinearGradient colors = {["#1449B0", "#75BEEE"]} style = {styles.container1}>
-      <View style = {[styles.container1, {marginBottom: windowHeight / 6,}]}>
+      <View style = {[styles.container1, {marginBottom: windowHeight / 6}]}>
         <Text style = {styles.title}>Прогноз Я</Text>
       </View>
       <View

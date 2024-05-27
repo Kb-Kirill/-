@@ -77,21 +77,27 @@ const AddPhoto = () => {
 
   return (
     <LinearGradient colors = {["#75BEEE", "#CCEDFF"]} style = {[styles.gradient, {alignItems: "center"}]}>
-      <View style = {[styles.container2, {width: '85%'}]}>
-        <Text style = {styles.header}>Период времени</Text>
-        <CustomSlider sliderValue = {sliderValue} onSliderChange = {handleSliderChange}/>
-        <Text style = {styles.header}>Ваше фото</Text>
-        <View style = {styles.iconsContainer}>
-          <TouchableOpacity style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]} onPress = {handleTakePhoto}>
-            <Icon style = {styles.icon} name="camera-retro" />
-            <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: 'center'}]}>Сделать фото</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]}
-            onPress = {handleChooseFromGallery}>
-            <Icon style = {styles.icon} name = "photo" />
-            <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: 'center'}]}>Загрузить из галереи</Text>
-          </TouchableOpacity>
+      <View style = {styles.container2}>
+        <View style = {{alignItems: "center"}}>
+          <View>
+            <Text style = {styles.header}>Период времени</Text>
+            <CustomSlider sliderValue = {sliderValue} onSliderChange = {handleSliderChange}/>
+          </View>
+          <View >
+            <Text style = {styles.header}>Ваше фото</Text>
+            <View style = {styles.iconsContainer}>
+              <TouchableOpacity style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]} onPress = {handleTakePhoto}>
+                <Icon style = {styles.icon} name="camera-retro" />
+                <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: "center"}]}>Сделать фото</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]}
+                onPress = {handleChooseFromGallery}>
+                <Icon style = {styles.icon} name = "photo" />
+                <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: "center"}]}>Загрузить из галереи</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
         <View style = {styles.nextButtonContainer}>
           <TouchableOpacity style = {[styles.button, styles.shadow, {alignSelf: "center"}]} onPress = {goBack}>

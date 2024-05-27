@@ -22,7 +22,7 @@ const CustomSlider = ({ sliderValue, onSliderChange }) => {
   return (
     <View style = {styles.sliderContainer}>
       <Slider
-        style = {{ width: 320 }}
+        style = {{ width: "85%" }}
         minimumValue = {1}
         maximumValue = {4}
         step = {1}

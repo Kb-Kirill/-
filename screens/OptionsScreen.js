@@ -39,58 +39,59 @@ const OptionsScreen = () => {
 
   return (
     <LinearGradient colors = {["#75BEEE", "#CCEDFF"]} style = {styles.gradient}>
-      <ScrollView contentContainerStyle = {styles.scrollViewContent}>
-        <View style = {[styles.container2, {width: '100%'}]}>
+      <ScrollView >
+        <View style = {styles.container0}>
           {error ? (
             <View style = {styles.errorContainer}>
-              <Text style = {[styles.mainText, {color: "white", textAlign: "center",}]}>{error}</Text>
+              <Text style = {[styles.mainText, {color: "white", textAlign: "center"}]}>{error}</Text>
             </View>
           ) : null}
-          <View style = {{width: '85%'}}>
-            <Text style = {styles.header}>Ваш возраст</Text>
-            <View style = {styles.category}>
-              <View style = {[styles.field, styles.ageInput, styles.shadow]}>
-                <TextInput
-                  style = {styles.inputInner}
-                  keyboardType="numeric"
-                  value = {age}
-                  onChangeText = {handleAgeChange}
-                />
+          <View style = {{width: '85%', justifyContent: 'space-between'}} >
+              <Text style = {styles.header}>Ваш возраст</Text>
+              <View style = {styles.category}>
+                <View style = {[styles.field, styles.ageInput, styles.shadow]}>
+                  <TextInput
+                    style = {styles.inputInner}
+                    keyboardType="numeric"
+                    value = {age}
+                    onChangeText = {handleAgeChange}
+                  />
+                </View>
               </View>
-            </View>
-            <Text style = {styles.header}>Тип вещества</Text>
-            <View style = {styles.category}>
-              <Pressable
-                style = {[styles.option, styles.field, styles.shadow]}
-                onPress = {() => setSelectedSubstance("alcohol")}>
-                <View style = {styles.radioCircle}>
-                  {selectedSubstance === "alcohol" && (
-                    <View style = {styles.selectedRb}/>
-                  )}
-                </View>
-                <Text style = {styles.mainText}>Алкоголь</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.option, styles.field, styles.shadow]}
-                onPress={() => setSelectedSubstance("drugs")}>
-                <View style = {styles.radioCircle}>
-                  {selectedSubstance === "drugs" && (
-                    <View style = {styles.selectedRb}/>
-                  )}
-                </View>
-                <Text style = {styles.mainText}>Наркотики</Text>
-              </Pressable>
-              <Pressable 
-                style = {[styles.option, styles.field, styles.shadow]}
-                onPress = {() => setSelectedSubstance("cigarettes")}>
-                <View style = {styles.radioCircle}>
-                  {selectedSubstance === "cigarettes" && (
-                    <View style = {styles.selectedRb}/>
-                  )}
-                </View>
-                <Text style = {styles.mainText}>Сигареты</Text>
-              </Pressable>
-            </View>
+              <Text style = {styles.header}>Тип вещества</Text>
+              <View style = {styles.category}>
+                <Pressable
+                  style = {[styles.option, styles.field, styles.shadow]}
+                  onPress = {() => setSelectedSubstance("alcohol")}>
+                  <View style = {styles.radioCircle}>
+                    {selectedSubstance === "alcohol" && (
+                      <View style = {styles.selectedRb}/>
+                    )}
+                  </View>
+                  <Text style = {styles.mainText}>Алкоголь</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.option, styles.field, styles.shadow]}
+                  onPress={() => setSelectedSubstance("drugs")}>
+                  <View style = {styles.radioCircle}>
+                    {selectedSubstance === "drugs" && (
+                      <View style = {styles.selectedRb}/>
+                    )}
+                  </View>
+                  <Text style = {styles.mainText}>Наркотики</Text>
+                </Pressable>
+                <Pressable 
+                  style = {[styles.option, styles.field, styles.shadow]}
+                  onPress = {() => setSelectedSubstance("cigarettes")}>
+                  <View style = {styles.radioCircle}>
+                    {selectedSubstance === "cigarettes" && (
+                      <View style = {styles.selectedRb}/>
+                    )}
+                  </View>
+                  <Text style = {styles.mainText}>Сигареты</Text>
+                </Pressable>
+              </View>
+
             <Text style = {styles.header}>Степень зависимости</Text>
             <View style = {styles.category}>
               <Pressable
@@ -116,9 +117,9 @@ const OptionsScreen = () => {
               </Pressable>
             </View>
           </View>
-          <View></View>
+          
           <TouchableOpacity onPress = {handlePress} 
-          style = {[styles.button, styles.shadow, {marginTop: 40}, error && {marginTop: 20}]}>
+          style = {[styles.button, styles.shadow]}>
             <Text style = {styles.buttonText}>Далее</Text>
           </TouchableOpacity>
         </View>
