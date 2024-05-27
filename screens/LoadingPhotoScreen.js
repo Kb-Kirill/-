@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text} from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import * as FileSystem from "expo-file-system";
 import { LinearGradient } from "expo-linear-gradient";
 import { GlobalContext } from "../context/GlobalContext";
+import { styles } from "../styles/Styles";
 
-REPLICATE_API_TOKEN = "r8_QUCp7NjyuI0GSd3bfZSmgBErZwPIMjz2squxD";
+REPLICATE_API_TOKEN = "r8_0Mi86sNv0zdNBdLbc4xtUHgputFpFdY3ycGRE";
 
 const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);
@@ -17,7 +18,7 @@ const LoadingPhotoScreen = ({ route }) => {
   const { userImage } = route.params;
 
   const { yearValue, age, selectedSubstance, selectedDependency } =
-    useContext(GlobalContext);
+  useContext(GlobalContext);
 
   const [ageInput, setAgeInput] = useState(parseInt(age) + parseInt(yearValue));
 
@@ -111,66 +112,24 @@ const LoadingPhotoScreen = ({ route }) => {
   }, [hasRedirected, navigation]);
 
   return (
-    <LinearGradient colors={["#1449B0", "#75BEEE"]} style={styles.container}>
-      <View style={styles.dotsContainer}>
-        <View style={[styles.dot, currentDot === 0 && styles.activeDot]} />
-        <View style={[styles.dot, currentDot === 1 && styles.activeDot]} />
-        <View style={[styles.dot, currentDot === 2 && styles.activeDot]} />
+    <LinearGradient
+    colors = {["#1449B0", "#75BEEE"]} style = {styles.container1}>
+      <View style = {styles.dotsContainer}>
+        <View style = {[styles.dot, currentDot === 0 && styles.activeDot]} />
+        <View style = {[styles.dot, currentDot === 1 && styles.activeDot]} />
+        <View style = {[styles.dot, currentDot === 2 && styles.activeDot]} />
       </View>
       {error ? (
-        <Text style={styles.errorText}>{error}</Text>
+        <Text style = {styles.errorText}>{error}</Text>
       ) : (
         <View>
-          <Text style={styles.text}>Загружаем результат</Text>
-          <Text style={styles.timerText}>Прошло времени: {timer} </Text>
-          <Text style={styles.timerText}>Ожидаемый возраст: {ageInput} </Text>
+          <Text style = {[styles.header, {fontSize: 24, color: 'white'}]}>Загружаем результат</Text>
+          <Text style = {styles.loadingText}>Прошло времени: {timer}</Text>
+          <Text style = {styles.loadingText}>Ожидаемый возраст: {ageInput}</Text>
         </View>
       )}
     </LinearGradient>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  dotsContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-    alignItems: "center",
-  },
-  dot: {
-    width: 20,
-    height: 20,
-    borderRadius: 15,
-    backgroundColor: "#B3E5FC",
-    marginHorizontal: 10,
-  },
-  activeDot: {
-    backgroundColor: "#303F9F",
-  },
-  text: {
-    fontSize: 24,
-    fontFamily: "os-bold",
-    color: "white",
-    textAlign: "center",
-  },
-  timerText: {
-    fontSize: 18,
-    fontFamily: "os-regular",
-    marginTop: 20,
-    textAlign: "center",
-    color: "white",
-  },
-  errorText: {
-    fontSize: 24,
-    fontFamily: "os-bold",
-    color: "#B01414",
-    textAlign: "centers",
-  },
-});
 
 export default LoadingPhotoScreen;
