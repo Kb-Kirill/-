@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, Dimensions} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../styles/Styles";
@@ -12,6 +12,7 @@ const HomeScreen = () => {
   const handlePress = () => {
     navigation.navigate("Options");
   };
+
 
   return (
     <LinearGradient colors = {["#1449B0", "#75BEEE"]} style = {styles.container1}>

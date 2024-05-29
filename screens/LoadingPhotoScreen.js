@@ -7,7 +7,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { GlobalContext } from "../context/GlobalContext";
 import { styles } from "../styles/Styles";
 
-REPLICATE_API_TOKEN = "r8_InT2AqZ9m9QyNeyY5Yp2udbbbeB6n3x0Ov4ze";
+REPLICATE_API_TOKEN = "r8_HSuX4OZtrjT7wCeSq2NOV0xOOEb7UlU1F9Hrm";
 
 const LoadingPhotoScreen = ({ route }) => {
   const [currentDot, setCurrentDot] = useState(0);

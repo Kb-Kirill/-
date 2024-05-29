@@ -230,11 +230,15 @@ export const styles = StyleSheet.create({
       resizeMode: "contain",
     },
     iconButton: {
-      width: windowHeight / 17,
-      height: windowHeight / 17,
+      width: 50,
+      height: 50,
+      borderRadius: 15,
+    },
+    iconBackground:{
       justifyContent: "center",
       alignItems: "center",
+      width: "100%",
+      height: "100%",
       borderRadius: 15,
-      backgroundColor: "#F0F0F0",
-    },
+    }
 })
