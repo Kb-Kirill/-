@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
 
-REPLICATE_API_TOKEN = "r8_dG4I9OlkjMFjtpgRKMhrKByDnG0J8EB41cfuk";
+
 
 const LoadingPhotoScreen = () => {
   const [currentDot, setCurrentDot] = useState(0);
