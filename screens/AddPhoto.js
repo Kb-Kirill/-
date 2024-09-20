@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useContext } from "react";
+import {View, Text, TouchableOpacity} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
+import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 import CustomSlider from "../components/CustomSlider";
+import { GlobalContext } from "../context/GlobalContext.js";
+import { styles} from "../styles/Styles";
 
 const AddPhoto = () => {
-  const [selectedYears, setSelectedYears] = useState(5);
   const [userImage, setUserImage] = useState(null);
   const [sliderValue, setSliderValue] = useState(1);
+  const { yearValue, setYearValue } = useContext(GlobalContext);
 
   const handleSliderChange = (value) => {
-    setSliderValue(value);
+    setYearValue(value);
   };
 
   const navigation = useNavigation();
@@ -31,8 +34,6 @@ const AddPhoto = () => {
     }
 
     let result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
 
@@ -73,96 +74,37 @@ const AddPhoto = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.sliderLabel}>Период времени</Text>
-      <CustomSlider
-        sliderValue={sliderValue}
-        onSliderChange={handleSliderChange}
-      />
-      <Text style={styles.sliderLabel}>Ваше фото</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleTakePhoto}>
-          <Icon style={styles.icon} name="camera-retro" />
-          <Text style={styles.buttonText}>Сделать фото</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleChooseFromGallery}
-        >
-          <Icon style={styles.icon} name="photo" />
-          <Text style={styles.buttonText}>Загрузить из галереи</Text>
-        </TouchableOpacity>
+    <LinearGradient colors = {["#75BEEE", "#CCEDFF"]} style = {[styles.gradient, {alignItems: "center"}]}>
+      <View style = {styles.container2}>
+        <View style = {{alignItems: "center"}}>
+          <View>
+            <Text style = {styles.header}>Период времени</Text>
+            <CustomSlider sliderValue = {sliderValue} onSliderChange = {handleSliderChange}/>
+          </View>
+          <View >
+            <Text style = {styles.header}>Ваше фото</Text>
+            <View style = {styles.iconsContainer}>
+              <TouchableOpacity style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]} onPress = {handleTakePhoto}>
+                <Icon style = {styles.icon} name="camera-retro" />
+                <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: "center"}]}>Сделать фото</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style = {[styles.photoButton, styles.shadow, {shadowRadius: 10}]}
+                onPress = {handleChooseFromGallery}>
+                <Icon style = {styles.icon} name = "photo" />
+                <Text style = {[styles.mainText, {paddingTop: 10, fontSize: 14, textAlign: "center"}]}>Загрузить из галереи</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View style = {styles.nextButtonContainer}>
+          <TouchableOpacity style = {[styles.button, styles.shadow, {alignSelf: "center"}]} onPress = {goBack}>
+            <Text style = {styles.buttonText}>Назад</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.nextButtonContainer}>
-        <TouchableOpacity style={styles.nextButton} onPress={goBack}>
-          <Text style={styles.nextButtonText}>Назад</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </LinearGradient>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    padding: 20,
-    marginTop: 20,
-  },
-  mark: {
-    fontSize: 12,
-    color: "#888",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    width: "100%",
-    marginTop: 40,
-  },
-  button: {
-    backgroundColor: "rgba(204, 237, 255, 1)",
-    width: 150,
-    height: 131,
-    justifyContent: "center",
-    borderRadius: 12,
-  },
-  buttonText: {
-    paddingTop: 10,
-    fontFamily: "os-regular",
-    fontSize: 14,
-    lineHeight: 16,
-    color: "#000",
-    textAlign: "center",
-  },
-  nextButtonContainer: {
-    width: "100%",
-    marginTop: 264,
-  },
-  nextButton: {
-    backgroundColor: "#233195",
-    width: 164,
-    height: 50,
-    borderRadius: 12,
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  nextButtonText: {
-    fontFamily: "os-bold",
-    fontSize: 18,
-    color: "#FFFFFF",
-    textAlign: "center",
-  },
-  icon: {
-    alignSelf: "center",
-    fontSize: 40,
-  },
-  sliderLabel: {
-    marginTop: 70,
-    fontFamily: "os-bold",
-    fontSize: 24,
-  },
-});
 
 export default AddPhoto;
