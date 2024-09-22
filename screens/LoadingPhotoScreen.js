@@ -10,6 +10,7 @@ import { styles } from "../styles/Styles";
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
 
 const LoadingPhotoScreen = ({ route }) => {
+  
   const [currentDot, setCurrentDot] = useState(0);
   const [error, setError] = useState(null);
   const [timer, setTimer] = useState(0);
@@ -76,7 +77,7 @@ const LoadingPhotoScreen = ({ route }) => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Token ${REPLICATE_API_TOKEN}`,
+              Authorization: `Bearer  ${REPLICATE_API_TOKEN}`,
             },
           }
         );
@@ -89,7 +90,7 @@ const LoadingPhotoScreen = ({ route }) => {
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Token ${REPLICATE_API_TOKEN}`,
+                Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
               },
             }
           );
@@ -110,7 +111,7 @@ const LoadingPhotoScreen = ({ route }) => {
 
         if (predictionData.status === "succeeded") {
           const processedImageUrl = predictionData.output;
-
+          console.log('2 request');
           const response = await axios.post(
             "https://api.replicate.com/v1/predictions",
             {
@@ -133,7 +134,7 @@ const LoadingPhotoScreen = ({ route }) => {
             {
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Token ${REPLICATE_API_TOKEN}`,
+                Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
               },
             }
           );
@@ -146,7 +147,7 @@ const LoadingPhotoScreen = ({ route }) => {
               {
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Token ${REPLICATE_API_TOKEN}`,
+                  Authorization: `Bearer ${REPLICATE_API_TOKEN}`,
                 },
               }
             );
